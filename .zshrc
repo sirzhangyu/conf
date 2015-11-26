@@ -45,10 +45,10 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git autojump git-flow github zsh-syntax-highlighting sublime sudo colored-man)
+plugins=(zsh_reload git autojump git-flow github zsh-syntax-highlighting sublime sudo colored-man rsync)
 
 # User configuration
-
+[[ -s /home/nicolas/.autojump/etc/profile.d/autojump.sh ]] && source /home/nicolas/.autojump/etc/profile.d/autojump.sh
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -96,8 +96,10 @@ alias -s cdb='cd /home/nicolas/git/bom'
 alias df='df -h'
 alias h='htop'
 alias vpn='sudo ssh applog@10.88.130.31 -D7077'
-alias dict=yd
-alias labfab='ssh root@labfab'
+alias labfab='ssh root@labfab -i ~/git/bom/sshkeys/10.88.85.80.key'
+alias 116='ssh weblogic@192.168.85.116'
+alias yd='python ~/Downloads/ydcv/ydcv.py'
+alias ..='cd ..'
 
 export WORKON_HOME=$HOME/.virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh
