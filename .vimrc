@@ -1,49 +1,38 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Maintainer: 
-"       Amir Salihefendic
-"       http://amix.dk - amix@amix.dk
-"
-" Version: 
-"       5.0 - 29/05/12 15:43:36
-"
-" Blog_post: 
-"       http://amix.dk/blog/post/19691#The-ultimate-Vim-configuration-on-Github
-"
-" Awesome_version:
-"       Get this config, nice color schemes and lots of plugins!
-"
-"       Install the awesome version from:
-"
-"           https://github.com/amix/vimrc
-"
-" Syntax_highlighted:
-"       http://amix.dk/vim/vimrc.html
-"
-" Raw_version: 
-"       http://amix.dk/vim/vimrc.txt
-"
-" Sections:
-"    -> General
-"    -> VIM user interface
-"    -> Colors and Fonts
-"    -> Files and backups
-"    -> Text, tab and indent related
-"    -> Visual mode related
-"    -> Moving around, tabs and buffers
-"    -> Status line
-"    -> Editing mappings
-"    -> vimgrep searching and cope displaying
-"    -> Spell checking
-"    -> Misc
-"    -> Helper functions
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible               " be iMproved
+filetype off                   " required!
+ 
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
 
+" let Vundle manage Vundle
+" required!
+Bundle 'gmarik/vundle'
+Bundle 'scrooloose/nerdtree'
+Bundle 'taglist.vim'
+Bundle 'yegappan/grep'
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Sets how many lines of history VIM has to remember
+" My Bundles here:
+"
+" original repos on github
+"Bundle 'tpope/vim-fugitive'
+"Bundle 'Lokaltog/vim-easymotion'
+"Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+"Bundle 'tpope/vim-rails.git'
+"vim -scrripts repos on github
+"Bundle 'L9'
+"Bundle 'fuzzyFinder'
+"non github repos
+"Bundle 'git://git.wincent.com/command-t.git'
+"...
+"Brief help
+":BundleList            - list configured bundles
+":BundlInstall(!)       - install(update) bundles
+":BundleSearch(!) foo   - search(or refresh cache first) for foo
+":BundleClean(!)        - confirm(or auto-approve) removal of unused bundles
+"
+"see :h vundle for more details or wiki for FAQ
+"NOTE: comments after Bundle command are not allowed...
+
 set history=700
 
 " Enable filetype plugins
@@ -93,7 +82,7 @@ endif
 set ruler
 
 " Height of the command bar
-set cmdheight=2
+set cmdheight=1
 
 " A buffer becomes hidden when it is abandoned
 set hid
@@ -239,7 +228,7 @@ map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove 
-map <leader>t<leader> :tabnext 
+map <leader>t<leader> :tabnext<CR>
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
@@ -433,3 +422,24 @@ endfunction
 set nu
 set cursorline
 set cursorcolumn
+set clipboard=unnamed
+set hls
+vnoremap y "+yy
+
+" For NERDTree
+autocmd StdinReadPre * let s:std_in=-1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+map <C-n> :NERDTreeToggle<CR>
+
+" Ctags
+set tags=tags;/
+
+" taglist
+nnoremap <silent><F8> :TlistToggle<CR>
+" let Tlist_Show_One_File = 1
+let Tlist_Exit_OnlyWindow = 1
+" map <silent><leader>tl :TlistToggle<CR>
+
+" vim grep plugin
+nmap <F3> :Rgrep<CR><CR><CR><CR>

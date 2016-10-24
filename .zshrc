@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/home/nicolas/.oh-my-zsh
+export ZSH=/home/zhangyu/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -83,24 +83,25 @@ alias ll='ls -la'
 alias la='ls -a'
 alias vi='vim'
 alias grep='grep --color=auto'
-alias -s py=vi
-alias -s js=vi
-alias -s c=vi
-alias -s java=vi
-alias -s txt=vi
 alias -s gz='tar -xzvf'
 alias -s tgz='tar -xzvf'
 alias -s zip='unzip'
 alias -s bz2='tar -xjvf'
-alias -s cdb='cd /home/nicolas/git/bom'
 alias df='df -h'
 alias h='htop'
-alias yd='python /home/nicolas/Documents/ZY/ydcv/ydcv.py'
-alias vpn='sudo ssh applog@10.88.130.31 -D7077'
-alias labfab='ssh root@labfab -i /home/nicolas/git/bom/sshkeys/10.88.85.80.key'
-alias labpxe='ssh root@labpxe -i /home/nicolas/git/bom/sshkeys/10.88.84.51.key'
-alias 116='ssh weblogic@192.168.85.116'
-alias cdb='cd ~/git/bom'
+alias yd='python /home/zhangyu/Documents/ZY/ydcv/ydcv.py'
+alias buildserver='ssh root@buildserver'
+alias 29='ssh root@192.168.0.29'
+alias 128='sshpass -p qwer1234 ssh root@192.168.0.128 '
+alias 130='sshpass -p qwer1234 ssh root@192.168.0.130'
+alias 131='sshpass -p qwer1234 ssh root@192.168.0.131'
+alias 129='sshpass -p qwer1234 ssh root@192.168.0.129'
+alias 156='sshpass -p qwer1234 ssh root@192.168.0.156'
+alias 157='sshpass -p qwer1234 ssh root@192.168.0.157'
+alias syncmanager='rsync -avz /home/zhangyu/Documents/svn/vgate_manager/ root@buildserver:zhangyu/manager/'
+alias synccore='rsync -avz /home/zhangyu/Documents/svn/vgate_core/ root@buildserver:zhangyu/core/'
+alias syncxapi='rsync -avz /home/zhangyu/Documents/svn/vgate_xapi/ root@buildserver:zhangyu/xapi/'
+alias jq='/home/zhangyu/Documents/ZY/jq-linux64'
 
 # virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
@@ -112,10 +113,13 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
 # oracle jdk
-export JAVA_HOME="/usr/lib/jvm/java-8-oracle"
+export JAVA_HOME="/usr/lib/jvm/java"
 
-export NVM_DIR="/home/nicolas/.nvm"
+export NVM_DIR="/home/zhangyu/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-export ANDROID_HOME="/home/nicolas/Android/Sdk"
-export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+#export ANDROID_HOME="/home/zhangyu/Android/Sdk"
+#export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+
+# OPAM configuration
+. /home/zhangyu/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
