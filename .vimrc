@@ -1,37 +1,60 @@
 set nocompatible               " be iMproved
-filetype off                   " required!
  
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+call plug#begin('~/.vim/plugged')
 
-" let Vundle manage Vundle
-" required!
-Bundle 'gmarik/vundle'
-Bundle 'scrooloose/nerdtree'
-Bundle 'taglist.vim'
-Bundle 'yegappan/grep'
+" Make sure you use single quotes
 
-" My Bundles here:
-"
-" original repos on github
-"Bundle 'tpope/vim-fugitive'
-"Bundle 'Lokaltog/vim-easymotion'
-"Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-"Bundle 'tpope/vim-rails.git'
-"vim -scrripts repos on github
-"Bundle 'L9'
-"Bundle 'fuzzyFinder'
-"non github repos
-"Bundle 'git://git.wincent.com/command-t.git'
-"...
-"Brief help
-":BundleList            - list configured bundles
-":BundlInstall(!)       - install(update) bundles
-":BundleSearch(!) foo   - search(or refresh cache first) for foo
-":BundleClean(!)        - confirm(or auto-approve) removal of unused bundles
-"
-"see :h vundle for more details or wiki for FAQ
-"NOTE: comments after Bundle command are not allowed...
+" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
+" Plug 'junegunn/vim-easy-align'
+
+" Any valid git URL is allowed
+" Plug 'https://github.com/junegunn/vim-github-dashboard.git'
+
+" Group dependencies, vim-snippets depends on ultisnips
+" Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
+" On-demand loading
+" Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+" Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+
+" Using a non-master branch
+" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+
+" Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
+" Plug 'fatih/vim-go', { 'tag': '*' }
+
+" Plugin options
+" Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
+
+" Plugin outside ~/.vim/plugged with post-update hook
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+
+" Unmanaged plugin (manually installed and updated)
+" Plug '~/my-prototype-plugin'
+
+" Add plugins to &runtimepath
+
+Plug 'scrooloose/nerdtree'
+Plug 'majutsushi/tagbar'
+Plug 'yegappan/grep'
+" Plug 'Valloric/YouCompleteMe'
+Plug 'kien/ctrlp.vim'
+Plug 'rking/ag.vim'
+Plug 'Yggdroot/indentLine'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'bigeagle/molokai'
+Plug 'klen/python-mode'
+Plug 'davidhalter/jedi-vim'
+Plug 'vim-scripts/vcscommand.vim'
+Plug 'ervandew/supertab'
+" Plug 'scrooloose/syntastic'
+" Bundle 'tpope/vim-surround'
+" Bundle 'tpope/vim-unimpaired'
+" Bundle 'vim-airline/vim-airline'
+" Bundle 'SirVer/ultisnips'
+" Bundle 'honza/vim-snippets'
+
+call plug#end()
 
 set history=700
 
@@ -52,7 +75,7 @@ nmap <leader>w :w!<cr>
 
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
+" command W w !sudo tee % > /dev/null
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -136,7 +159,8 @@ set foldcolumn=1
 syntax enable 
 
 try
-    colorscheme desert
+     colorscheme desert
+    " colorscheme molokai
 catch
 endtry
 
@@ -183,7 +207,7 @@ set tabstop=4
 set lbr
 set tw=500
 
-set ai "Auto indent
+" set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
 
@@ -303,10 +327,10 @@ autocmd BufWrite *.coffee :call DeleteTrailingWS()
 "    requires ack.vim - it's much better than vimgrep/grep
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " When you press gv you Ack after the selected text
-vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
+" vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
 
 " Open Ack and put the cursor in the right position
-map <leader>g :Ack 
+" map <leader>g :Ack 
 
 " When you press <leader>r you can search and replace the selected text
 vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
@@ -425,6 +449,15 @@ set cursorcolumn
 set clipboard=unnamed
 set hls
 vnoremap y "+yy
+nnoremap <silent> <leader>C :%s///gn<CR>
+
+" buffer
+" ctrl + ^ switch between buffers
+nnoremap <silent> [b: bprevious<CR>
+nnoremap <silent> ]b: bnext<CR>
+nnoremap <silent> [B: bfirst<CR>
+nnoremap <silent> ]B: blast<CR>
+cnoremap <expr> %% getcmdtype()==':'?expand('%:h').'/':'%%'
 
 " For NERDTree
 autocmd StdinReadPre * let s:std_in=-1
@@ -435,11 +468,133 @@ map <C-n> :NERDTreeToggle<CR>
 " Ctags
 set tags=tags;/
 
+" tagbar
+nmap <F8> :TagbarToggle<CR>
+
 " taglist
-nnoremap <silent><F8> :TlistToggle<CR>
+" nnoremap <silent><F8> :TlistToggle<CR>
 " let Tlist_Show_One_File = 1
-let Tlist_Exit_OnlyWindow = 1
+" let Tlist_Exit_OnlyWindow = 1
 " map <silent><leader>tl :TlistToggle<CR>
 
 " vim grep plugin
-nmap <F3> :Rgrep<CR><CR><CR><CR>
+nmap <F3> :Rgrep<CR>
+
+" YouCompleteMe
+" let g:ycm_python_binary_path = 'python'
+" let g:yc_error_symbol = '>>'
+" let g:ycm_warning_symbol = '>*'
+" let g:ycm_autoclose_preview_window_after_completion=1
+" nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
+" nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
+" nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+" CtrlP
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'a'
+
+" ag
+let g:ackprg = 'ag --vimgrep --smart-case'
+let g:ag_highlight = 1
+map <F4> :Ag 
+
+" rainbow_parentheses
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+" no black parenthese
+" \ ['black',       'SeaGreen3'],
+let g:rbpt_max = 16
+let g:rbpt_loadcmd_toggle = 0
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
+" jedi-vim
+" let g:jedi#use_tabs_not_buffers = 1
+" let g:jedi#use_splits_not_buffers = "left"
+" let g:jedi#show_call_signatures = "1"
+" <leader>n find usage
+" <leader>r rename variable
+
+" supertab
+" let g:SuperTabDefaultCompletionType = "<c-n>"
+" let g:SuperTabContextDefaultCompletionType = "<c-n>"
+
+
+" Python-mode
+" Activate rope
+" Keys: 按键：
+" K             Show python docs 显示Python文档
+" <Ctrl-Space>  Rope autocomplete  使用Rope进行自动补全
+" <Ctrl-c>g     Rope goto definition  跳转到定义处
+" <Ctrl-c>d     Rope show documentation  显示文档
+" <Ctrl-c>f     Rope find occurrences  寻找该对象出现的地方
+" <Leader>b     Set, unset breakpoint (g:pymode_breakpoint enabled) 断点
+" [[            Jump on previous class or function (normal, visual, operator modes)
+" ]]            Jump on next class or function (normal, visual, operator modes)
+"            跳转到前一个/后一个类或函数
+" [M            Jump on previous class or method (normal, visual, operator modes)
+" ]M            Jump on next class or method (normal, visual, operator modes)
+"              跳转到前一个/后一个类或方法
+let g:pymode_rope = 1
+
+" Documentation 显示文档
+let g:pymode_doc = 1
+let g:pymode_doc_key = 'K'
+
+" Linting 代码查错，=1为启用
+let g:pymode_lint = 1
+let g:pymode_lint_checker = "pyflakes,pep8"
+" Auto check on save
+let g:pymode_lint_write = 1
+
+" Support virtualenv
+let g:pymode_virtualenv = 1
+
+" Enable breakpoints plugin
+let g:pymode_breakpoint = 1
+let g:pymode_breakpoint_bind = '<leader>b'
+
+" syntax highlighting 高亮形式
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+let g:pymode_syntax_space_errors = g:pymode_syntax_all
+
+" Don't autofold code 禁用自动代码折叠
+let g:pymode_folding = 0
+
+" VCSCommand
+" <Leader> ca VCSAdd
+" <Leader> cn VCSAnnotate
+" <Leader> cN VCSAnnotate!
+" <Leader> cc VCSCommit
+" <Leader> cD VCSDelete
+" <Leader> cd VCSDiff
+" <Leader> cg VCSGotoOriginal
+" <Leader> cG VCSGotoOriginal!
+nmap <Leader>ci: VCSInfo
+nmap <Leader>cl: VCSLog
+" <Leader> cL VCSLock
+nmap <Leader>cr: VCSReview
+nmap <Leader>cs: VCSStatus
+" <Leader> cu VCSUpdate
+" <Leader> cU VCSUnlock
+nmap <Leader>cv: VCSVimDiff
