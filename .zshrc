@@ -102,6 +102,8 @@ alias syncmanager='rsync -avz /home/zhangyu/Documents/svn/vgate_manager/ root@bu
 alias synccore='rsync -avz /home/zhangyu/Documents/svn/vgate_core/ root@buildserver:zhangyu/core/'
 alias syncxapi='rsync -avz /home/zhangyu/Documents/svn/vgate_xapi/ root@buildserver:zhangyu/xapi/'
 alias jq='/home/zhangyu/Documents/ZY/jq-linux64'
+alias myip="ifconfig eno1|grep 'inet addr'|awk -F '[ :]+' '{print \$4}'"
+# alias myip="ifconfig eno1|grep 'inet addr'|sed 's/inet addr://g'|cut -d ' ' -f1"
 
 # virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
