@@ -91,16 +91,24 @@ alias df='df -h'
 alias h='htop'
 alias yd='python /home/zhangyu/Documents/ZY/ydcv/ydcv.py'
 alias buildserver='ssh root@buildserver'
+alias bs='ssh root@bs'
+alias b521='ssh root@b521'
 alias 29='ssh root@192.168.0.29'
+alias 127='sshpass -p qwer1234 ssh root@192.167.0.127 '
 alias 128='sshpass -p qwer1234 ssh root@192.168.0.128 '
+alias 129='sshpass -p qwer1234 ssh root@192.168.0.129'
 alias 130='sshpass -p qwer1234 ssh root@192.168.0.130'
 alias 131='sshpass -p qwer1234 ssh root@192.168.0.131'
-alias 129='sshpass -p qwer1234 ssh root@192.168.0.129'
 alias 156='sshpass -p qwer1234 ssh root@192.168.0.156'
 alias 157='sshpass -p qwer1234 ssh root@192.168.0.157'
-alias syncmanager='rsync -avz /home/zhangyu/Documents/svn/vgate_manager/ root@buildserver:zhangyu/manager/'
-alias synccore='rsync -avz /home/zhangyu/Documents/svn/vgate_core/ root@buildserver:zhangyu/core/'
+# alias syncmanager='rsync -avz /home/zhangyu/Documents/svn/vgate_manager/ root@buildserver:zhangyu/manager/'
+alias syncmanager='rsync -avz /home/zhangyu/Documents/svn/vgate_manager/ root@bs:zy/manager/'
+# alias synccore='rsync -avz /home/zhangyu/Documents/svn/vgate_core/vgate_6.0.1-trunk root@buildserver:zhangyu/core/'
+alias synccore='rsync -avz /home/zhangyu/Documents/svn/vgate_core/vgate_6.0.1-trunk root@bs:zy/core/'
 alias syncxapi='rsync -avz /home/zhangyu/Documents/svn/vgate_xapi/ root@buildserver:zhangyu/xapi/'
+alias syncoem='rsync -avz /home/zhangyu/Documents/svn/oem/vgate_6.0.0-oem/ root@buildserver:zhangyu/oem/core'
+alias syncoemmanager='rsync -avz /home/zhangyu/Documents/svn/oem/vgate_manager_6.0.0-oem/ root@buildserver:zhangyu/oem/manager'
+alias sync521='rsync -avz /home/zhangyu/Documents/svn/vgate-5.2.1-r4-ga root@b521:zhangyu'
 alias jq='/home/zhangyu/Documents/ZY/jq-linux64'
 alias myip="ifconfig eno1|grep 'inet addr'|awk -F '[ :]+' '{print \$4}'"
 # alias myip="ifconfig eno1|grep 'inet addr'|sed 's/inet addr://g'|cut -d ' ' -f1"
@@ -119,6 +127,7 @@ export JAVA_HOME="/usr/lib/jvm/java"
 
 export NVM_DIR="/home/zhangyu/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+export NODE_PATH="/home/zhangyu/.nvm/versions/node/v6.9.1/lib/node_modules:$NODE_PATH"
 
 #export ANDROID_HOME="/home/zhangyu/Android/Sdk"
 #export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools

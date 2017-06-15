@@ -37,7 +37,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree'
 Plug 'majutsushi/tagbar'
 Plug 'yegappan/grep'
-" Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe'
 Plug 'kien/ctrlp.vim'
 Plug 'rking/ag.vim'
 Plug 'Yggdroot/indentLine'
@@ -47,6 +47,8 @@ Plug 'klen/python-mode'
 Plug 'davidhalter/jedi-vim'
 Plug 'vim-scripts/vcscommand.vim'
 Plug 'ervandew/supertab'
+Plug 'vim-scripts/matchit.zip'
+Plug 'jlanzarotta/bufexplorer'
 " Plug 'scrooloose/syntastic'
 " Bundle 'tpope/vim-surround'
 " Bundle 'tpope/vim-unimpaired'
@@ -90,8 +92,7 @@ set langmenu=en
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
 
-" Turn on the WiLd menu
-set wildmenu
+set wildmenu    " visual autocomplete for command menu
 
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
@@ -128,6 +129,9 @@ set smartcase
 " Highlight search results
 set hlsearch
 
+" turn off search highlight
+nnoremap <leader><space> :nohlsearch<CR>
+
 " Makes search act like search in modern browsers
 set incsearch 
 
@@ -151,6 +155,14 @@ set tm=500
 " Add a bit extra margin to the left
 set foldcolumn=1
 
+set foldenable    " enable folding
+set foldlevelstart=10    " open most folds by default
+set foldnestmax=10    " 10 nested fold max
+set foldmethod=indent    " fold based on indent level
+
+" space open/closes folds
+nnoremap <space> za
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
@@ -159,8 +171,8 @@ set foldcolumn=1
 syntax enable 
 
 try
-     colorscheme desert
-    " colorscheme molokai
+    colorscheme desert
+    " colorscheme badwolf
 catch
 endtry
 
@@ -202,6 +214,9 @@ set smarttab
 " 1 tab == 4 spaces
 set shiftwidth=4
 set tabstop=4
+set softtabstop=4   " number of spaces in tab when editing
+
+set showcmd    " show command in bottom bar
 
 " Linebreak on 500 characters
 set lbr
@@ -227,10 +242,6 @@ vnoremap <silent> # :call VisualSelection('b', '')<CR>
 " Treat long lines as break lines (useful when moving around in them)
 map j gj
 map k gk
-
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
-map <c-space> ?
 
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
@@ -444,7 +455,7 @@ function! <SID>BufcloseCloseIt()
 endfunction
 
 set nu
-set cursorline
+set cursorline    " highlight current line
 set cursorcolumn
 set clipboard=unnamed
 set hls
@@ -453,10 +464,10 @@ nnoremap <silent> <leader>C :%s///gn<CR>
 
 " buffer
 " ctrl + ^ switch between buffers
-nnoremap <silent> [b: bprevious<CR>
-nnoremap <silent> ]b: bnext<CR>
-nnoremap <silent> [B: bfirst<CR>
-nnoremap <silent> ]B: blast<CR>
+nnoremap <silent> [b :bprevious<CR>
+nnoremap <silent> ]b :bnext<CR>
+nnoremap <silent> [B :bfirst<CR>
+nnoremap <silent> ]B :blast<CR>
 cnoremap <expr> %% getcmdtype()==':'?expand('%:h').'/':'%%'
 
 " For NERDTree
@@ -482,12 +493,12 @@ nmap <F3> :Rgrep<CR>
 
 " YouCompleteMe
 " let g:ycm_python_binary_path = 'python'
-" let g:yc_error_symbol = '>>'
-" let g:ycm_warning_symbol = '>*'
-" let g:ycm_autoclose_preview_window_after_completion=1
+let g:yc_error_symbol = '>>'
+let g:ycm_warning_symbol = '>*'
+ let g:ycm_autoclose_preview_window_after_completion=1
 " nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
 " nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
-" nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+ nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " CtrlP
 let g:ctrlp_map = '<c-p>'
@@ -497,7 +508,7 @@ let g:ctrlp_working_path_mode = 'a'
 " ag
 let g:ackprg = 'ag --vimgrep --smart-case'
 let g:ag_highlight = 1
-map <F4> :Ag 
+map <F4> :Ag --python 
 
 " rainbow_parentheses
 let g:rbpt_colorpairs = [
@@ -553,17 +564,21 @@ au Syntax * RainbowParenthesesLoadBraces
 " [M            Jump on previous class or method (normal, visual, operator modes)
 " ]M            Jump on next class or method (normal, visual, operator modes)
 "              跳转到前一个/后一个类或方法
-let g:pymode_rope = 1
+" let g:pymode_rope = 1
+
+" Choose python version
+" let g:pymode_python = 'python'
 
 " Documentation 显示文档
 let g:pymode_doc = 1
 let g:pymode_doc_key = 'K'
 
 " Linting 代码查错，=1为启用
-let g:pymode_lint = 1
+let g:pymode_lint = 0
 let g:pymode_lint_checker = "pyflakes,pep8"
+let g:pymode_lint_ignore = ""
 " Auto check on save
-let g:pymode_lint_write = 1
+let g:pymode_lint_write = 0
 
 " Support virtualenv
 let g:pymode_virtualenv = 1
@@ -598,3 +613,14 @@ nmap <Leader>cs: VCSStatus
 " <Leader> cu VCSUpdate
 " <Leader> cU VCSUnlock
 nmap <Leader>cv: VCSVimDiff
+
+
+" BufExplorer
+let g:bufExplorerDefaultHelp=0       " Do not show default help.
+let g:bufExplorerShowRelativePath=1  " Show relative paths.
+let g:bufExplorerSortBy='mru'        " Sort by most recently used.
+let g:bufExplorerSplitRight=0        " Split left.
+let g:bufExplorerSplitVertical=1     " Split vertically.
+let g:bufExplorerSplitVertSize = 30  " Split width
+let g:bufExplorerUseCurrentWindow=1  " Open in new window.
+autocmd BufWinEnter \[Buf\ List\] setl nonumber
