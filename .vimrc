@@ -577,11 +577,11 @@ let g:pymode_doc = 1
 let g:pymode_doc_key = 'K'
 
 " Linting 代码查错，=1为启用
-let g:pymode_lint = 1
+let g:pymode_lint = 0
 let g:pymode_lint_checker = "pyflakes,pep8"
 let g:pymode_lint_ignore = ""
 " Auto check on save
-let g:pymode_lint_write = 1
+let g:pymode_lint_write = 0
 
 " Support virtualenv
 let g:pymode_virtualenv = 1
