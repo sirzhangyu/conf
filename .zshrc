@@ -91,16 +91,18 @@ alias df='df -h'
 alias h='htop'
 alias yd='python /home/zhangyu/Documents/ZY/ydcv/ydcv.py'
 alias buildserver='ssh root@buildserver'
-alias 29='ssh root@192.168.0.29'
+alias b521='ssh root@b521'
+alias 127='sshpass -p qwer1234 ssh root@192.168.0.127 '
 alias 128='sshpass -p qwer1234 ssh root@192.168.0.128 '
+alias 129='sshpass -p qwer1234 ssh root@192.168.0.129'
 alias 130='sshpass -p qwer1234 ssh root@192.168.0.130'
 alias 131='sshpass -p qwer1234 ssh root@192.168.0.131'
-alias 129='sshpass -p qwer1234 ssh root@192.168.0.129'
 alias 156='sshpass -p qwer1234 ssh root@192.168.0.156'
 alias 157='sshpass -p qwer1234 ssh root@192.168.0.157'
-alias syncmanager='rsync -avz /home/zhangyu/Documents/svn/vgate_manager/ root@buildserver:zhangyu/manager/'
-alias synccore='rsync -avz /home/zhangyu/Documents/svn/vgate_core/ root@buildserver:zhangyu/core/'
-alias syncxapi='rsync -avz /home/zhangyu/Documents/svn/vgate_xapi/ root@buildserver:zhangyu/xapi/'
+# alias syncmanager='rsync -avz /home/zhangyu/Documents/svn/vgate_manager/ root@buildserver:zhangyu/manager/'
+alias syncmanager='rsync -avz /home/zhangyu/Documents/svn/vgate_manager/ root@buildserver:zy/manager/'
+# alias synccore='rsync -avz /home/zhangyu/Documents/svn/vgate_core/vgate_6.0.1-trunk root@buildserver:zhangyu/core/'
+alias synccore='rsync -avz /home/zhangyu/Documents/svn/vgate_core/vgate_6.0.1-trunk root@buildserver:zy/core/'
 alias jq='/home/zhangyu/Documents/ZY/jq-linux64'
 alias myip="ifconfig eno1|grep 'inet addr'|awk -F '[ :]+' '{print \$4}'"
 # alias myip="ifconfig eno1|grep 'inet addr'|sed 's/inet addr://g'|cut -d ' ' -f1"
@@ -115,13 +117,15 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
 # oracle jdk
-export JAVA_HOME="/usr/lib/jvm/java"
+export JAVA_HOME="/usr/lib/jvm/java-7-oracle"
 
 export NVM_DIR="/home/zhangyu/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+export NODE_PATH="/home/zhangyu/.nvm/versions/node/v6.9.1/lib/node_modules:$NODE_PATH"
 
 #export ANDROID_HOME="/home/zhangyu/Android/Sdk"
 #export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 
 # OPAM configuration
-. /home/zhangyu/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+# . /home/zhangyu/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
