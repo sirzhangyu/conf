@@ -50,12 +50,16 @@ Plug 'ervandew/supertab'
 Plug 'vim-scripts/matchit.zip'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'Lokaltog/vim-easymotion'
+Plug 'powerline/powerline'
 " Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-repeat'
 " Bundle 'tpope/vim-unimpaired'
 " Bundle 'vim-airline/vim-airline'
-" Bundle 'SirVer/ultisnips'
-" Bundle 'honza/vim-snippets'
+Plug 'Raimondi/delimitMate'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 call plug#end()
 
@@ -78,7 +82,7 @@ nmap <leader>w :w!<cr>
 
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
+command! W w !sudo tee % > /dev/null
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -633,3 +637,9 @@ let g:bufExplorerSplitVertical=1     " Split vertically.
 let g:bufExplorerSplitVertSize = 30  " Split width
 let g:bufExplorerUseCurrentWindow=1  " Open in new window.
 autocmd BufWinEnter \[Buf\ List\] setl nonumber
+
+"set UltiSnips
+let g:UltiSnipsExpandTrigger="<leader><tab>"
+let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
+let g:UltiSnipsJumpBackwardTrgger="<leader><tab>"
+let g:UltiSnipsListSnippets="<c-e>"

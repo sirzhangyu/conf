@@ -93,7 +93,7 @@ alias yd='python /home/zhangyu/Documents/ZY/ydcv/ydcv.py'
 alias buildserver='ssh root@buildserver'
 alias bs='ssh root@bs'
 alias b521='ssh root@b521'
-alias 127='sshpass -p qwer1234 ssh root@192.167.0.127 '
+alias 127='sshpass -p qwer1234 ssh root@192.168.0.127 '
 alias 128='sshpass -p qwer1234 ssh root@192.168.0.128 '
 alias 129='sshpass -p qwer1234 ssh root@192.168.0.129'
 alias 130='sshpass -p qwer1234 ssh root@192.168.0.130'
@@ -122,15 +122,18 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
 # oracle jdk
-export JAVA_HOME="/usr/lib/jvm/java-7-oracle"
+export JAVA_HOME="/usr/lib/jvm/java-8-oracle"
 
 export NVM_DIR="/home/zhangyu/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 export NODE_PATH="/home/zhangyu/.nvm/versions/node/v6.9.1/lib/node_modules:$NODE_PATH"
 
-#export ANDROID_HOME="/home/zhangyu/Android/Sdk"
-#export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+export ANDROID_HOME="/home/zhangyu/android-sdk-linux"
+export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 
 # OPAM configuration
 # . /home/zhangyu/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"

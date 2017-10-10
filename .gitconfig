@@ -1,0 +1,14 @@
+[alias]
+    st = status
+    ci = commit
+    br = branch
+    co = checkout
+    df = diff
+[color]
+    status = auto
+    branch = auto
+    interactive = auto
+    diff = auto
+[user]
+    name = zhangyu
+    email = sirzhangyu@gmail.com
