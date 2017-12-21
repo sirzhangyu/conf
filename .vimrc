@@ -2,38 +2,6 @@ set nocompatible               " be iMproved
  
 call plug#begin('~/.vim/plugged')
 
-" Make sure you use single quotes
-
-" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
-" Plug 'junegunn/vim-easy-align'
-
-" Any valid git URL is allowed
-" Plug 'https://github.com/junegunn/vim-github-dashboard.git'
-
-" Group dependencies, vim-snippets depends on ultisnips
-" Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-
-" On-demand loading
-" Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-" Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
-
-" Using a non-master branch
-" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
-
-" Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
-" Plug 'fatih/vim-go', { 'tag': '*' }
-
-" Plugin options
-" Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
-
-" Plugin outside ~/.vim/plugged with post-update hook
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-
-" Unmanaged plugin (manually installed and updated)
-" Plug '~/my-prototype-plugin'
-
-" Add plugins to &runtimepath
-
 Plug 'scrooloose/nerdtree'
 Plug 'majutsushi/tagbar'
 Plug 'yegappan/grep'
@@ -43,23 +11,24 @@ Plug 'rking/ag.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'bigeagle/molokai'
-Plug 'klen/python-mode'
+Plug 'python-mode/python-mode'
 Plug 'davidhalter/jedi-vim'
-Plug 'vim-scripts/vcscommand.vim'
 Plug 'ervandew/supertab'
 Plug 'vim-scripts/matchit.zip'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'Lokaltog/vim-easymotion'
-Plug 'powerline/powerline'
-" Plug 'scrooloose/syntastic'
+" Plug 'powerline/powerline'
+Plug 'w0rp/ale'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
-" Bundle 'tpope/vim-unimpaired'
-" Bundle 'vim-airline/vim-airline'
+" Plug 'tpope/vim-unimpaired'
+" Plug 'vim-airline/vim-airline'
 Plug 'Raimondi/delimitMate'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'mhinz/vim-signify'
+" Plug 'terryma/vim-smooth-scroll'
 
 call plug#end()
 
@@ -177,6 +146,7 @@ syntax enable
 
 try
     colorscheme desert
+    " colorscheme molokai
     " colorscheme badwolf
 catch
 endtry
@@ -220,6 +190,11 @@ set smarttab
 set shiftwidth=4
 set tabstop=4
 set softtabstop=4   " number of spaces in tab when editing
+
+" set list    " display tab
+" set listchars=tab:\|\ ,nbsp:%,trail:-
+" highlight LeaderTab guifg=#666666
+" match LeaderTab /^\t/
 
 set showcmd    " show command in bottom bar
 
@@ -373,6 +348,7 @@ map <leader>p :cp<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
+" set spell
 
 " Shortcuts using <leader>
 map <leader>sn ]s
@@ -395,7 +371,6 @@ map <leader>x :e ~/buffer.md<cr>
 
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
-
 
 
 
@@ -488,12 +463,6 @@ set tags=tags;/
 " tagbar
 nmap <F8> :TagbarToggle<CR>
 
-" taglist
-" nnoremap <silent><F8> :TlistToggle<CR>
-" let Tlist_Show_One_File = 1
-" let Tlist_Exit_OnlyWindow = 1
-" map <silent><leader>tl :TlistToggle<CR>
-
 " vim grep plugin
 nmap <F3> :Rgrep<CR>
 
@@ -501,7 +470,7 @@ nmap <F3> :Rgrep<CR>
 " let g:ycm_python_binary_path = 'python'
 let g:yc_error_symbol = '>>'
 let g:ycm_warning_symbol = '>*'
- let g:ycm_autoclose_preview_window_after_completion=1
+let g:ycm_autoclose_preview_window_after_completion=1
 " nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
 " nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
  nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
@@ -545,50 +514,32 @@ au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
 " jedi-vim
-" let g:jedi#use_tabs_not_buffers = 1
-" let g:jedi#use_splits_not_buffers = "left"
-" let g:jedi#show_call_signatures = "1"
-" <leader>n find usage
-" <leader>r rename variable
+"let g:jedi#use_tabs_not_buffers = 1
+"let g:jedi#use_splits_not_buffers = "left"
+"let g:jedi#show_call_signatures = 1
+"<leader>n find usage
+"<leader>r rename variable
 
 " supertab
-" let g:SuperTabDefaultCompletionType = "<c-n>"
+let g:SuperTabDefaultCompletionType = "context"
 " let g:SuperTabContextDefaultCompletionType = "<c-n>"
 
 
 " Python-mode
-" Activate rope
-" Keys: 按键：
-" K             Show python docs 显示Python文档
-" <Ctrl-Space>  Rope autocomplete  使用Rope进行自动补全
-" <Ctrl-c>g     Rope goto definition  跳转到定义处
-" <Ctrl-c>d     Rope show documentation  显示文档
-" <Ctrl-c>f     Rope find occurrences  寻找该对象出现的地方
-" <Leader>b     Set, unset breakpoint (g:pymode_breakpoint enabled) 断点
-" [[            Jump on previous class or function (normal, visual, operator modes)
-" ]]            Jump on next class or function (normal, visual, operator modes)
-"            跳转到前一个/后一个类或函数
-" [M            Jump on previous class or method (normal, visual, operator modes)
-" ]M            Jump on next class or method (normal, visual, operator modes)
-"              跳转到前一个/后一个类或方法
-" let g:pymode_rope = 1
+let g:pymode_python = 'python'
+" Fix vim hangs in regenerate rope cache
+let g:pymode_rope = 0
+let g:pymode_rope_completion = 0
+let g:pymode_rope_lookup_project = 0
+let g:pymode_rope_complete_on_dot = 0
+let g:pymode_rope_autoimport = 0
 
-" Choose python version
-" let g:pymode_python = 'python'
-
-" Documentation 显示文档
-let g:pymode_doc = 1
-let g:pymode_doc_key = 'K'
-
-" Linting 代码查错，=1为启用
-let g:pymode_lint = 0
-let g:pymode_lint_checker = "pyflakes,pep8"
-let g:pymode_lint_ignore = ""
-" Auto check on save
-let g:pymode_lint_write = 0
-
-" Support virtualenv
 let g:pymode_virtualenv = 1
+
+let g:pymode_lint = 1
+let g:pymode_lint_on_write = 1
+let g:pymode_lint_checkers = ["pyflakes" , "pep8"]
+let g:pymode_lint_ignore = "E203,E272,E221,E251,E202,E271,C0302,W0511,F0401,R0901,R0904,C0110,W0232,C1001,R0903,C0111,E1101,C0103,R0921,R0201"
 
 " Enable breakpoints plugin
 let g:pymode_breakpoint = 1
@@ -600,33 +551,18 @@ let g:pymode_syntax_all = 1
 let g:pymode_syntax_indent_errors = g:pymode_syntax_all
 let g:pymode_syntax_space_errors = g:pymode_syntax_all
 
-" Don't autofold code 禁用自动代码折叠
 let g:pymode_folding = 0
 
-" Fix vim hangs in regenerate rope cache
-let g:pymode_rope = 0
-let g:pymode_rope_lookup_project = 0
-let g:pymode_rope_complete_on_dot = 0
-let g:pymode_rope_autoimport = 0
-
-" VCSCommand
-" <Leader> ca VCSAdd
-" <Leader> cn VCSAnnotate
-" <Leader> cN VCSAnnotate!
-" <Leader> cc VCSCommit
-" <Leader> cD VCSDelete
-" <Leader> cd VCSDiff
-" <Leader> cg VCSGotoOriginal
-" <Leader> cG VCSGotoOriginal!
-nmap <Leader>ci: VCSInfo
-nmap <Leader>cl: VCSLog
-" <Leader> cL VCSLock
-nmap <Leader>cr: VCSReview
-nmap <Leader>cs: VCSStatus
-" <Leader> cu VCSUpdate
-" <Leader> cU VCSUnlock
-nmap <Leader>cv: VCSVimDiff
-
+" ale
+let g:ale_lint_on_enter = 0
+let g:ale_fix_on_save = 1
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
+let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 " BufExplorer
 let g:bufExplorerDefaultHelp=0       " Do not show default help.
@@ -643,3 +579,9 @@ let g:UltiSnipsExpandTrigger="<leader><tab>"
 let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
 let g:UltiSnipsJumpBackwardTrgger="<leader><tab>"
 let g:UltiSnipsListSnippets="<c-e>"
+
+" vim-smooth-scroll
+" noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+" noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+" noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+" noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>

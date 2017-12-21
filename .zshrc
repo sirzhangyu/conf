@@ -100,6 +100,8 @@ alias 130='sshpass -p qwer1234 ssh root@192.168.0.130'
 alias 131='sshpass -p qwer1234 ssh root@192.168.0.131'
 alias 156='sshpass -p qwer1234 ssh root@192.168.0.156'
 alias 157='sshpass -p qwer1234 ssh root@192.168.0.157'
+alias zyw='sshpass -p qwer1234 ssh zyw@172.18.10.113'
+alias zhangyouwei='sshpass -p qwer1234 ssh zhangyouwei@172.18.10.16'
 # alias syncmanager='rsync -avz /home/zhangyu/Documents/svn/vgate_manager/ root@buildserver:zhangyu/manager/'
 alias syncmanager='rsync -avz /home/zhangyu/Documents/svn/vgate_manager/ root@buildserver:zy/manager/'
 # alias synccore='rsync -avz /home/zhangyu/Documents/svn/vgate_core/vgate_6.0.1-trunk root@buildserver:zhangyu/core/'
@@ -108,6 +110,8 @@ alias syncxapi='rsync -avz /home/zhangyu/Documents/svn/vgate_xapi/ root@buildser
 alias syncoem='rsync -avz /home/zhangyu/Documents/svn/oem/vgate_6.0.0-oem/ root@buildserver:zhangyu/oem/core'
 alias syncoemmanager='rsync -avz /home/zhangyu/Documents/svn/oem/vgate_manager_6.0.0-oem/ root@buildserver:zhangyu/oem/manager'
 alias sync521='rsync -avz /home/zhangyu/Documents/svn/vgate-5.2.1-r4-ga root@b521:zhangyu'
+alias syncuiserver='rsync -avz /home/zhangyu/Documents/git/uiserver root@172.18.10.35:/usr/lib/python2.7/'
+alias syncagent='rsync -avz /home/zhangyu/Documents/git/vtop-agent root@172.18.10.35:/usr/lib/python2.7/'
 alias jq='/home/zhangyu/Documents/ZY/jq-linux64'
 alias myip="ifconfig eno1|grep 'inet addr'|awk -F '[ :]+' '{print \$4}'"
 # alias myip="ifconfig eno1|grep 'inet addr'|sed 's/inet addr://g'|cut -d ' ' -f1"
@@ -131,9 +135,13 @@ export NODE_PATH="/home/zhangyu/.nvm/versions/node/v6.9.1/lib/node_modules:$NODE
 export ANDROID_HOME="/home/zhangyu/android-sdk-linux"
 export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 
-# OPAM configuration
-# . /home/zhangyu/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+# golang
+export PATH=$PATH:/usr/local/go/bin
+
+# added by Anaconda3 installer
+export PATH="/home/zhangyu/anaconda3/bin:$PATH"
