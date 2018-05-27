@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/home/zhangyu/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -89,30 +89,8 @@ alias -s zip='unzip'
 alias -s bz2='tar -xjvf'
 alias df='df -h'
 alias h='htop'
-alias yd='python /home/zhangyu/Documents/ZY/ydcv/ydcv.py'
-alias buildserver='ssh root@buildserver'
-alias bs='ssh root@bs'
-alias b521='ssh root@b521'
-alias 127='sshpass -p qwer1234 ssh root@192.168.0.127 '
-alias 128='sshpass -p qwer1234 ssh root@192.168.0.128 '
-alias 129='sshpass -p qwer1234 ssh root@192.168.0.129'
-alias 130='sshpass -p qwer1234 ssh root@192.168.0.130'
-alias 131='sshpass -p qwer1234 ssh root@192.168.0.131'
-alias 156='sshpass -p qwer1234 ssh root@192.168.0.156'
-alias 157='sshpass -p qwer1234 ssh root@192.168.0.157'
-alias zyw='sshpass -p qwer1234 ssh zyw@172.18.10.113'
-alias zhangyouwei='sshpass -p qwer1234 ssh zhangyouwei@172.18.10.16'
-# alias syncmanager='rsync -avz /home/zhangyu/Documents/svn/vgate_manager/ root@buildserver:zhangyu/manager/'
-alias syncmanager='rsync -avz /home/zhangyu/Documents/svn/vgate_manager/ root@buildserver:zy/manager/'
-# alias synccore='rsync -avz /home/zhangyu/Documents/svn/vgate_core/vgate_6.0.1-trunk root@buildserver:zhangyu/core/'
-alias synccore='rsync -avz /home/zhangyu/Documents/svn/vgate_core/vgate_6.0.1-trunk root@buildserver:zy/core/'
-alias syncxapi='rsync -avz /home/zhangyu/Documents/svn/vgate_xapi/ root@buildserver:zhangyu/xapi/'
-alias syncoem='rsync -avz /home/zhangyu/Documents/svn/oem/vgate_6.0.0-oem/ root@buildserver:zhangyu/oem/core'
-alias syncoemmanager='rsync -avz /home/zhangyu/Documents/svn/oem/vgate_manager_6.0.0-oem/ root@buildserver:zhangyu/oem/manager'
-alias sync521='rsync -avz /home/zhangyu/Documents/svn/vgate-5.2.1-r4-ga root@b521:zhangyu'
-alias syncuiserver='rsync -avz /home/zhangyu/Documents/git/uiserver root@172.18.10.35:/usr/lib/python2.7/'
-alias syncagent='rsync -avz /home/zhangyu/Documents/git/vtop-agent root@172.18.10.35:/usr/lib/python2.7/'
-alias jq='/home/zhangyu/Documents/ZY/jq-linux64'
+alias yd='ydcv'
+# alias yd='python $HOME/Documents/ZY/ydcv/ydcv.py'
 alias myip="ifconfig eno1|grep 'inet addr'|awk -F '[ :]+' '{print \$4}'"
 # alias myip="ifconfig eno1|grep 'inet addr'|sed 's/inet addr://g'|cut -d ' ' -f1"
 
@@ -126,22 +104,22 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
 # oracle jdk
-export JAVA_HOME="/usr/lib/jvm/java-8-oracle"
+# export JAVA_HOME="/usr/lib/jvm/java-8-oracle"
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_162.jdk/Contents/Home"
 
-export NVM_DIR="/home/zhangyu/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-export NODE_PATH="/home/zhangyu/.nvm/versions/node/v6.9.1/lib/node_modules:$NODE_PATH"
-
-export ANDROID_HOME="/home/zhangyu/android-sdk-linux"
-export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
-
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# export NODE_PATH="$HOME/.nvm/versions/node/v6.9.1/lib/node_modules:$NODE_PATH"
+
+export ANDROID_HOME="$HOME/android-sdk-linux"
+export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
 # golang
-export PATH=$PATH:/usr/local/go/bin
+# export PATH=$PATH:/usr/local/go/bin
 
 # added by Anaconda3 installer
-export PATH="/home/zhangyu/anaconda3/bin:$PATH"
+export PATH="$HOME/anaconda3/bin:$PATH"
