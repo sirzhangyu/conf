@@ -5,7 +5,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree'
 Plug 'majutsushi/tagbar'
 Plug 'yegappan/grep'
-Plug 'Valloric/YouCompleteMe'
+" Plug 'Valloric/YouCompleteMe'
 Plug 'kien/ctrlp.vim'
 Plug 'rking/ag.vim'
 Plug 'Yggdroot/indentLine'
@@ -17,6 +17,7 @@ Plug 'ervandew/supertab'
 Plug 'vim-scripts/matchit.zip'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'Lokaltog/vim-easymotion'
+"Plug 'justinmk/vim-sneak'
 " Plug 'powerline/powerline'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-surround'
@@ -28,7 +29,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'mhinz/vim-signify'
-" Plug 'terryma/vim-smooth-scroll'
+Plug 'terryma/vim-smooth-scroll'
 
 call plug#end()
 
@@ -526,7 +527,7 @@ let g:SuperTabDefaultCompletionType = "context"
 
 
 " Python-mode
-let g:pymode_python = 'python'
+let g:pymode_python = 'python3'
 " Fix vim hangs in regenerate rope cache
 let g:pymode_rope = 0
 let g:pymode_rope_completion = 0
@@ -575,13 +576,14 @@ let g:bufExplorerUseCurrentWindow=1  " Open in new window.
 autocmd BufWinEnter \[Buf\ List\] setl nonumber
 
 "set UltiSnips
+let g:UltiSnipsUsePythonVersion=3
 let g:UltiSnipsExpandTrigger="<leader><tab>"
 let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
 let g:UltiSnipsJumpBackwardTrgger="<leader><tab>"
 let g:UltiSnipsListSnippets="<c-e>"
 
 " vim-smooth-scroll
-" noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
-" noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
-" noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
-" noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>

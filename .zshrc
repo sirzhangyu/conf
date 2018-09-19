@@ -90,18 +90,22 @@ alias -s bz2='tar -xjvf'
 alias df='df -h'
 alias h='htop'
 alias yd='ydcv'
+alias install='sudo apt install -y'
+alias update='sudo apt update -y'
+alias upgrade='sudo apt upgrade -y'
+alias root='sudo su -'
+alias myip='ip -br -c -a'
 # alias yd='python $HOME/Documents/ZY/ydcv/ydcv.py'
-alias myip="ifconfig eno1|grep 'inet addr'|awk -F '[ :]+' '{print \$4}'"
-# alias myip="ifconfig eno1|grep 'inet addr'|sed 's/inet addr://g'|cut -d ' ' -f1"
-
-# virtualenvwrapper
-export WORKON_HOME=$HOME/.virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+
+# virtualenvwrapper
+export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
+export WORKON_HOME=$HOME/.virtualenvs
+pyenv virtualenvwrapper_lazy
 
 # oracle jdk
 # export JAVA_HOME="/usr/lib/jvm/java-8-oracle"
