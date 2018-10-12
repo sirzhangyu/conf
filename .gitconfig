@@ -3,12 +3,21 @@
     ci = commit
     br = branch
     co = checkout
-    df = diff
+    df = difftool
+	dfw = diff --ignore-space-change
 [color]
     status = auto
     branch = auto
     interactive = auto
     diff = auto
+[core]
+    editor = vim
 [user]
-    name = zhangyu
-    email = sirzhangyu@gmail.com
+	email = Nick.Zhang2@emc.com
+	name = Zhang Yu
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[merge]
+    tool = vimdiff

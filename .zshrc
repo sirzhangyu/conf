@@ -89,13 +89,22 @@ alias -s zip='unzip'
 alias -s bz2='tar -xjvf'
 alias df='df -h'
 alias h='htop'
-alias yd='ydcv'
+# alias yd='ydcv'
 alias install='sudo apt install -y'
 alias update='sudo apt update -y'
 alias upgrade='sudo apt upgrade -y'
 alias root='sudo su -'
-alias myip='ip -br -c -a'
-# alias yd='python $HOME/Documents/ZY/ydcv/ydcv.py'
+alias myip='ip addr'
+alias yd='python $HOME/Documents/ZY/ydcv/src/ydcv.py'
+alias vmcyclone='sshpass -p Password123! ssh root@10.207.37.64'
+alias xua5='sshpass -p Password123! ssh root@10.244.124.135'
+alias testvm='sshpass -p dangerous ssh root@10.103.77.182'
+alias testvm2='sshpass -p Password123! ssh root@10.228.60.68'
+alias reports='sshpass -p c4dev! ssh root@cit-reports.usd.lab.emc.com'
+alias mysqlserver='sshpass -p Password123! ssh root@10.228.17.173'
+alias scriptserver='sshpass -p c4dev! ssh root@10.228.60.91'
+alias psw1='sshpass -p Password123!'
+alias psw2='sshpass -p dangerous'
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
@@ -127,3 +136,4 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 # added by Anaconda3 installer
 export PATH="$HOME/anaconda3/bin:$PATH"
+export SSHPASS="Password123!"

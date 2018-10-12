@@ -23,6 +23,7 @@ Plug 'w0rp/ale'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-fugitive'
 " Plug 'tpope/vim-unimpaired'
 " Plug 'vim-airline/vim-airline'
 Plug 'Raimondi/delimitMate'
@@ -440,7 +441,7 @@ set cursorline    " highlight current line
 set cursorcolumn
 set clipboard=unnamed
 set hls
-vnoremap y "+yy
+vnoremap y "+y
 nnoremap <silent> <leader>C :%s///gn<CR>
 map <silent><leader>D :vertical diffsplit
 
