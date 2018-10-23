@@ -96,7 +96,7 @@ alias upgrade='sudo apt upgrade -y'
 alias root='sudo su -'
 alias myip='ip addr'
 alias yd='python $HOME/Documents/ZY/ydcv/src/ydcv.py'
-alias vmcyclone='sshpass -p Password123! ssh root@10.207.37.64'
+alias devvm='sshpass -p Password123! ssh root@10.207.141.9'
 alias xua5='sshpass -p Password123! ssh root@10.244.124.135'
 alias testvm='sshpass -p dangerous ssh root@10.103.77.182'
 alias testvm2='sshpass -p Password123! ssh root@10.228.60.68'
@@ -125,15 +125,20 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 # export NODE_PATH="$HOME/.nvm/versions/node/v6.9.1/lib/node_modules:$NODE_PATH"
 
-export ANDROID_HOME="$HOME/android-sdk-linux"
-export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+# export ANDROID_HOME="$HOME/android-sdk-linux"
+# export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
 # golang
-# export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:/usr/local/go/bin
 
 # added by Anaconda3 installer
-export PATH="$HOME/anaconda3/bin:$PATH"
-export SSHPASS="Password123!"
+# export PATH="$HOME/anaconda3/bin:$PATH"
+# export SSHPASS="Password123!"
+
+# FZF
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND="fd --exclude={.git,.idea,.vscode,.sass-cache,node_modules,build} --type f"
+export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --preview '(highlight -O ansi {} || cat {}) 2> /dev/null | head -500'"

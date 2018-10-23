@@ -4,21 +4,17 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'scrooloose/nerdtree'
 Plug 'majutsushi/tagbar'
-Plug 'yegappan/grep'
-" Plug 'Valloric/YouCompleteMe'
-Plug 'kien/ctrlp.vim'
 Plug 'rking/ag.vim'
+" Plug 'kien/ctrlp.vim'
+Plug '~/.fzf'
+" Plug 'Valloric/YouCompleteMe'
 Plug 'Yggdroot/indentLine'
 Plug 'kien/rainbow_parentheses.vim'
-Plug 'bigeagle/molokai'
-Plug 'python-mode/python-mode'
-Plug 'davidhalter/jedi-vim'
 Plug 'ervandew/supertab'
 Plug 'vim-scripts/matchit.zip'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'Lokaltog/vim-easymotion'
-"Plug 'justinmk/vim-sneak'
-" Plug 'powerline/powerline'
+" Plug 'justinmk/vim-sneak'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
@@ -30,7 +26,11 @@ Plug 'Raimondi/delimitMate'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'mhinz/vim-signify'
-" Plug 'terryma/vim-smooth-scroll'
+Plug 'godlygeek/tabular'
+" Plug 'terryma/vim-multiple-cursors'
+Plug 'python-mode/python-mode'
+Plug 'davidhalter/jedi-vim'
+Plug 'pangloss/vim-javascript'
 
 call plug#end()
 
@@ -192,6 +192,9 @@ set smarttab
 set shiftwidth=4
 set tabstop=4
 set softtabstop=4   " number of spaces in tab when editing
+
+autocmd Filetype html setlocal ts=2 sw=2 expandtab
+autocmd Filetype javascript setlocal ts=2 sw=2 expandtab
 
 " set list    " display tab
 " set listchars=tab:\|\ ,nbsp:%,trail:-
@@ -466,24 +469,26 @@ set tags=tags;/
 nmap <F8> :TagbarToggle<CR>
 
 " vim grep plugin
-nmap <F3> :Rgrep<CR>
+" nmap <F3> :Rgrep<CR>
 
 " YouCompleteMe
 " let g:ycm_python_binary_path = 'python'
-let g:yc_error_symbol = '>>'
-let g:ycm_warning_symbol = '>*'
-let g:ycm_autoclose_preview_window_after_completion=1
+" let g:yc_error_symbol = '>>'
+" let g:ycm_warning_symbol = '>*'
+" let g:ycm_autoclose_preview_window_after_completion=1
+" set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/node_modules/*
 " nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
 " nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
- nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+" nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " CtrlP
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'a'
-nmap <leader>R :NERDTreeFocus<cr>R<c-w><c-p>:CtrlPClearCache<cr>
+" let g:ctrlp_map = '<c-p>'
+" let g:ctrlp_cmd = 'CtrlP'
+" let g:ctrlp_working_path_mode = 'a'
+" nmap <leader>R :NERDTreeFocus<cr>R<c-w><c-p>:CtrlPClearCache<cr>
 
 " ag
+nnoremap <silent><leader>a :Ag 
 let g:ackprg = 'ag --vimgrep --smart-case'
 let g:ag_highlight = 1
 map <F4> :Ag --python 
@@ -571,8 +576,10 @@ let g:bufExplorerDefaultHelp=0       " Do not show default help.
 let g:bufExplorerShowRelativePath=1  " Show relative paths.
 let g:bufExplorerSortBy='mru'        " Sort by most recently used.
 let g:bufExplorerSplitRight=0        " Split left.
+let g:bufExplorerSplitBelow=1        " Split below
 let g:bufExplorerSplitVertical=1     " Split vertically.
 let g:bufExplorerSplitVertSize = 30  " Split width
+let g:bufExplorerSplitHorzSize = 10  " Split width
 let g:bufExplorerUseCurrentWindow=1  " Open in new window.
 autocmd BufWinEnter \[Buf\ List\] setl nonumber
 
@@ -590,3 +597,10 @@ let g:UltiSnipsListSnippets="<c-tab>"
 " noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
 " noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
 " noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+
+" FZF
+nmap <C-p> :FZF<CR>
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
