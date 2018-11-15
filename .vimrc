@@ -5,7 +5,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree'
 Plug 'majutsushi/tagbar'
 Plug 'rking/ag.vim'
-" Plug 'kien/ctrlp.vim'
+Plug 'kien/ctrlp.vim'
 Plug '~/.fzf'
 " Plug 'Valloric/YouCompleteMe'
 Plug 'Yggdroot/indentLine'
@@ -35,6 +35,9 @@ Plug 'pangloss/vim-javascript'
 call plug#end()
 
 set history=700
+
+set splitbelow
+set splitright
 
 " Enable filetype plugins
 filetype plugin on
@@ -192,8 +195,12 @@ set smarttab
 set shiftwidth=4
 set tabstop=4
 set softtabstop=4   " number of spaces in tab when editing
+set autoindent "Auto indent
+set si "Smart indent
+set wrap "Wrap lines
 
-autocmd Filetype html setlocal ts=2 sw=2 expandtab
+set colorcolumn=81
+autocmd Filetype html,xhtml,xml,css setlocal ts=2 sw=2 expandtab
 autocmd Filetype javascript setlocal ts=2 sw=2 expandtab
 
 " set list    " display tab
@@ -206,10 +213,6 @@ set showcmd    " show command in bottom bar
 " Linebreak on 500 characters
 set lbr
 set tw=500
-
-" set ai "Auto indent
-set si "Smart indent
-set wrap "Wrap lines
 
 
 """"""""""""""""""""""""""""""
@@ -482,10 +485,10 @@ nmap <F8> :TagbarToggle<CR>
 " nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " CtrlP
-" let g:ctrlp_map = '<c-p>'
-" let g:ctrlp_cmd = 'CtrlP'
-" let g:ctrlp_working_path_mode = 'a'
-" nmap <leader>R :NERDTreeFocus<cr>R<c-w><c-p>:CtrlPClearCache<cr>
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'a'
+nmap <leader>R :NERDTreeFocus<cr>R<c-w><c-p>:CtrlPClearCache<cr>
 
 " ag
 nnoremap <silent><leader>a :Ag 
@@ -599,7 +602,7 @@ let g:UltiSnipsListSnippets="<c-tab>"
 " noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
 " FZF
-nmap <C-p> :FZF<CR>
+" nmap <C-p> :FZF<CR>
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-x': 'split',
