@@ -7,7 +7,7 @@ Plug 'majutsushi/tagbar'
 Plug 'rking/ag.vim'
 Plug 'kien/ctrlp.vim'
 Plug '~/.fzf'
-" Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe'
 Plug 'Yggdroot/indentLine'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'ervandew/supertab'
@@ -31,6 +31,9 @@ Plug 'godlygeek/tabular'
 Plug 'python-mode/python-mode'
 Plug 'davidhalter/jedi-vim'
 Plug 'pangloss/vim-javascript'
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 
 call plug#end()
 
@@ -199,9 +202,10 @@ set autoindent "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
 
-set colorcolumn=81
+" set colorcolumn=81
 autocmd Filetype html,xhtml,xml,css setlocal ts=2 sw=2 expandtab
 autocmd Filetype javascript setlocal ts=2 sw=2 expandtab
+autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=None
 
 " set list    " display tab
 " set listchars=tab:\|\ ,nbsp:%,trail:-
@@ -471,9 +475,6 @@ set tags=tags;/
 " tagbar
 nmap <F8> :TagbarToggle<CR>
 
-" vim grep plugin
-" nmap <F3> :Rgrep<CR>
-
 " YouCompleteMe
 " let g:ycm_python_binary_path = 'python'
 " let g:yc_error_symbol = '>>'
@@ -489,6 +490,10 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'a'
 nmap <leader>R :NERDTreeFocus<cr>R<c-w><c-p>:CtrlPClearCache<cr>
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*
+
+" vim grep plugin
+" nmap <F3> :Rgrep<CR>
 
 " ag
 nnoremap <silent><leader>a :Ag 
@@ -524,6 +529,7 @@ au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
 " jedi-vim
+let g:jedi#completions_enabled = 0
 "let g:jedi#use_tabs_not_buffers = 1
 "let g:jedi#use_splits_not_buffers = "left"
 "let g:jedi#show_call_signatures = 1
@@ -564,15 +570,26 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 let g:pymode_folding = 0
 
 " ale
+let g:ale_set_highlights = 0
 let g:ale_lint_on_enter = 0
 let g:ale_fix_on_save = 1
 let g:ale_sign_column_always = 1
-let g:ale_sign_error = '>>'
-let g:ale_sign_warning = '--'
-let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '⚡'
+let g:ale_statusline_format = ['✗ %d', '⚡ %d', '✔ OK']
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+nmap sp <Plug>(ale_previous_wrap)
+nmap sn <Plug>(ale_next_wrap)
+nmap <Leader>s :ALEToggle<CR>
+nmap <Leader>d :ALEDetail<CR>
+let g:ale_linters = {
+  \ 'c++': ['clang'],
+  \ 'c': ['clang'],
+  \ 'python': ['pylint'],
+  \ 'javascript': ['eslint'],
+\}
 
 " BufExplorer
 let g:bufExplorerDefaultHelp=0       " Do not show default help.
@@ -607,3 +624,23 @@ let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
+
+" vim-javascript
+augroup javascript_folding
+    au!
+    au FileType javascript setlocal foldmethod=syntax
+augroup END
+" let g:javascript_conceal_function             = "ƒ"
+" let g:javascript_conceal_null                 = "ø"
+" let g:javascript_conceal_this                 = "@"
+" let g:javascript_conceal_return               = "⇚"
+" let g:javascript_conceal_undefined            = "¿"
+" let g:javascript_conceal_NaN                  = "ℕ"
+" let g:javascript_conceal_prototype            = "¶"
+" let g:javascript_conceal_static               = "•"
+" let g:javascript_conceal_super                = "Ω"
+" let g:javascript_conceal_arrow_function       = "⇒"
+" set conceallevel=1
+
+" Prettier
+nmap <leader>P <Plug>(Prettier)
