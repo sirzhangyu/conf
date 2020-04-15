@@ -2,38 +2,46 @@ set nocompatible               " be iMproved
  
 call plug#begin('~/.vim/plugged')
 
-Plug 'scrooloose/nerdtree'
-Plug 'majutsushi/tagbar'
-Plug 'rking/ag.vim'
-Plug 'kien/ctrlp.vim'
-Plug '~/.fzf'
-Plug 'Valloric/YouCompleteMe'
+if has('nvim')
+  Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  " Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/defx.nvim'
+  Plug 'Shougo/deoplete.nvim'
+  " Plug 'Shougo/denite.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+" Plug 'kristijanhusak/defx-icons'
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+" Plug 'junegunn/fzf.vim'
+Plug 'morhetz/gruvbox'
 Plug 'Yggdroot/indentLine'
 Plug 'kien/rainbow_parentheses.vim'
-Plug 'ervandew/supertab'
 Plug 'vim-scripts/matchit.zip'
-Plug 'jlanzarotta/bufexplorer'
 Plug 'Lokaltog/vim-easymotion'
-" Plug 'justinmk/vim-sneak'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
-" Plug 'tpope/vim-unimpaired'
-" Plug 'vim-airline/vim-airline'
-Plug 'Raimondi/delimitMate'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'mhinz/vim-signify'
-Plug 'godlygeek/tabular'
+Plug 'tpope/vim-unimpaired'
+Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+Plug 'jiangmiao/auto-pairs'
+Plug 'airblade/vim-gitgutter'
+" Plug 'SirVer/ultisnips'
+" Plug 'honza/vim-snippets'
+" Plug 'mhinz/vim-signify'
 " Plug 'terryma/vim-multiple-cursors'
-Plug 'python-mode/python-mode'
+" Plug 'python-mode/python-mode'
 Plug 'davidhalter/jedi-vim'
 Plug 'pangloss/vim-javascript'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+" Plug 'liuchengxu/vim-which-key'
 
 call plug#end()
 
@@ -153,9 +161,7 @@ nnoremap <space> za
 syntax enable 
 
 try
-    colorscheme desert
-    " colorscheme molokai
-    " colorscheme badwolf
+    colorscheme gruvbox
 catch
 endtry
 
@@ -292,9 +298,6 @@ set viminfo^=%
 " Always show the status line
 set laststatus=2
 
-" Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
@@ -323,7 +326,6 @@ func! DeleteTrailingWS()
 endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()
 autocmd BufWrite *.coffee :call DeleteTrailingWS()
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Ack searching and cope displaying
@@ -463,43 +465,8 @@ nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> ]B :blast<CR>
 cnoremap <expr> %% getcmdtype()==':'?expand('%:h').'/':'%%'
 
-" For NERDTree
-autocmd StdinReadPre * let s:std_in=-1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-map <C-n> :NERDTreeToggle<CR>
-
 " Ctags
 set tags=tags;/
-
-" tagbar
-nmap <F8> :TagbarToggle<CR>
-
-" YouCompleteMe
-" let g:ycm_python_binary_path = 'python'
-" let g:yc_error_symbol = '>>'
-" let g:ycm_warning_symbol = '>*'
-" let g:ycm_autoclose_preview_window_after_completion=1
-" set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/node_modules/*
-" nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
-" nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
-" nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
-" CtrlP
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'a'
-nmap <leader>R :NERDTreeFocus<cr>R<c-w><c-p>:CtrlPClearCache<cr>
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*
-
-" vim grep plugin
-" nmap <F3> :Rgrep<CR>
-
-" ag
-nnoremap <silent><leader>a :Ag 
-let g:ackprg = 'ag --vimgrep --smart-case'
-let g:ag_highlight = 1
-map <F4> :Ag --python 
 
 " rainbow_parentheses
 let g:rbpt_colorpairs = [
@@ -535,11 +502,6 @@ let g:jedi#completions_enabled = 0
 "let g:jedi#show_call_signatures = 1
 "<leader>n find usage
 "<leader>r rename variable
-
-" supertab
-let g:SuperTabDefaultCompletionType = "context"
-" let g:SuperTabContextDefaultCompletionType = "<c-n>"
-
 
 " Python-mode
 let g:pymode_python = 'python3'
@@ -644,3 +606,111 @@ augroup END
 
 " Prettier
 nmap <leader>P <Plug>(Prettier)
+
+" LeaderF
+let g:Lf_WindowPosition = 'popup'
+let g:Lf_PreviewInPopup = 1
+let g:Lf_ShortcutF = '<C-P>'
+noremap <F8> :LeaderfFunction<cr>
+noremap <leader>fb :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
+noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
+noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
+noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
+noremap <C-B> :<C-U><C-R>=printf("Leaderf! rg --current-buffer -e %s ", expand("<cword>"))<CR>
+noremap <C-F> :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
+" search visually selected text literally
+xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
+noremap go :<C-U>Leaderf! rg --recall<CR>
+
+" defx
+noremap <C-n> :Defx<cr>
+autocmd FileType defx call s:defx_my_settings()
+function! s:defx_my_settings() abort
+  " Define mappings
+  nnoremap <silent><buffer><expr> <CR> defx#do_action('drop')
+  nnoremap <silent><buffer><expr> c
+  \ defx#do_action('copy')
+  nnoremap <silent><buffer><expr> m
+  \ defx#do_action('move')
+  nnoremap <silent><buffer><expr> p
+  \ defx#do_action('paste')
+  nnoremap <silent><buffer><expr> L
+  \ defx#do_action('open')
+  nnoremap <silent><buffer><expr> t
+  \ defx#do_action('open', 'tabnew')
+  nnoremap <silent><buffer><expr> E
+  \ defx#do_action('open', 'vsplit')
+  nnoremap <silent><buffer><expr> P
+  \ defx#do_action('open', 'pedit')
+  nnoremap <silent><buffer><expr> o
+  \ defx#do_action('open_or_close_tree')
+  nnoremap <silent><buffer><expr> K
+  \ defx#do_action('new_directory')
+  nnoremap <silent><buffer><expr> N
+  \ defx#do_action('new_file')
+  nnoremap <silent><buffer><expr> M
+  \ defx#do_action('new_multiple_files')
+  nnoremap <silent><buffer><expr> C
+  \ defx#do_action('toggle_columns',
+  \                'mark:indent:icon:filename:type:size:time')
+  nnoremap <silent><buffer><expr> S
+  \ defx#do_action('toggle_sort', 'time')
+  nnoremap <silent><buffer><expr> d
+  \ defx#do_action('remove')
+  nnoremap <silent><buffer><expr> r
+  \ defx#do_action('rename')
+  nnoremap <silent><buffer><expr> !
+  \ defx#do_action('execute_command')
+  nnoremap <silent><buffer><expr> x
+  \ defx#do_action('execute_system')
+  nnoremap <silent><buffer><expr> yy
+  \ defx#do_action('yank_path')
+  nnoremap <silent><buffer><expr> .
+  \ defx#do_action('toggle_ignored_files')
+  nnoremap <silent><buffer><expr> ;
+  \ defx#do_action('repeat')
+  nnoremap <silent><buffer><expr> H
+  \ defx#do_action('cd', ['..'])
+  nnoremap <silent><buffer><expr> ~
+  \ defx#do_action('cd')
+  nnoremap <silent><buffer><expr> q
+  \ defx#do_action('quit')
+  nnoremap <silent><buffer><expr> <Space>
+  \ defx#do_action('toggle_select') . 'j'
+  nnoremap <silent><buffer><expr> *
+  \ defx#do_action('toggle_select_all')
+  nnoremap <silent><buffer><expr> j
+  \ line('.') == line('$') ? 'gg' : 'j'
+  nnoremap <silent><buffer><expr> k
+  \ line('.') == 1 ? 'G' : 'k'
+  nnoremap <silent><buffer><expr> <C-r>
+  \ defx#do_action('redraw')
+  nnoremap <silent><buffer><expr> <C-g>
+  \ defx#do_action('print')
+  nnoremap <silent><buffer><expr> cd
+  \ defx#do_action('change_vim_cwd')
+endfunction
+call defx#custom#option('_', {
+    \ 'winwidth': 30,
+    \ 'split': 'vertical',
+    \ 'direction': 'topleft',
+    \ 'show_ignored_files': 0,
+    \ 'buffer_name': 'defxplorer',
+    \ 'columns': 'icons:indent:filename:type',
+    \ 'toggle': 1,
+    \ 'resume': 1
+    \ })
+
+call defx#custom#column('icon', {
+    \ 'directory_icon': '▸',
+    \ 'opened_icon': '▾',
+    \ })
+
+
+" airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'gruvbox'
+
+" deoplete
+let g:deoplete#enable_at_startup = 1
