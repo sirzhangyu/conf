@@ -28,16 +28,17 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
+Plug 'ervandew/supertab'
 Plug 'jiangmiao/auto-pairs'
 Plug 'airblade/vim-gitgutter'
 " Plug 'SirVer/ultisnips'
 " Plug 'honza/vim-snippets'
 " Plug 'mhinz/vim-signify'
 " Plug 'terryma/vim-multiple-cursors'
-" Plug 'python-mode/python-mode'
+Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'davidhalter/jedi-vim'
 Plug 'pangloss/vim-javascript'
+Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop'  }
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
@@ -106,9 +107,9 @@ set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
 " In many terminal emulators the mouse works just fine, thus enable it.
-if has('mouse')
-  set mouse=a
-endif
+" if has('mouse')
+"   set mouse=a
+" endif
 
 " Ignore case when searching
 set ignorecase
@@ -210,7 +211,7 @@ set wrap "Wrap lines
 
 " set colorcolumn=81
 autocmd Filetype html,xhtml,xml,css setlocal ts=2 sw=2 expandtab
-autocmd Filetype javascript setlocal ts=2 sw=2 expandtab
+autocmd Filetype javascript,typescript,ts setlocal ts=2 sw=2 expandtab
 autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=None
 
 " set list    " display tab
@@ -503,33 +504,8 @@ let g:jedi#completions_enabled = 0
 "<leader>n find usage
 "<leader>r rename variable
 
-" Python-mode
-let g:pymode_python = 'python3'
-" Fix vim hangs in regenerate rope cache
-let g:pymode_rope = 0
-let g:pymode_rope_completion = 0
-let g:pymode_rope_lookup_project = 0
-let g:pymode_rope_complete_on_dot = 0
-let g:pymode_rope_autoimport = 0
-
-let g:pymode_virtualenv = 1
-
-let g:pymode_lint = 1
-let g:pymode_lint_on_write = 1
-let g:pymode_lint_checkers = ["pyflakes" , "pep8"]
-let g:pymode_lint_ignore = "E203,E272,E221,E251,E202,E271,C0302,W0511,F0401,R0901,R0904,C0110,W0232,C1001,R0903,C0111,E1101,C0103,R0921,R0201"
-
-" Enable breakpoints plugin
-let g:pymode_breakpoint = 1
-let g:pymode_breakpoint_bind = '<leader>b'
-
-" syntax highlighting 高亮形式
-let g:pymode_syntax = 1
-let g:pymode_syntax_all = 1
-let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-let g:pymode_syntax_space_errors = g:pymode_syntax_all
-
-let g:pymode_folding = 0
+" supertab
+let g:SuperTabDefaultCompletionType = "context"
 
 " ale
 let g:ale_set_highlights = 0
@@ -611,13 +587,14 @@ nmap <leader>P <Plug>(Prettier)
 let g:Lf_WindowPosition = 'popup'
 let g:Lf_PreviewInPopup = 1
 let g:Lf_ShortcutF = '<C-P>'
-noremap <F8> :LeaderfFunction<cr>
+noremap <leader>ff :LeaderfFunction<cr>
 noremap <leader>fb :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
 noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
 noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
 noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
-noremap <C-B> :<C-U><C-R>=printf("Leaderf! rg --current-buffer -e %s ", expand("<cword>"))<CR>
-noremap <C-F> :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
+noremap <Leader>fsb :<C-U><C-R>=printf("Leaderf! rg --current-buffer -e %s ", expand("<cword>"))<CR>
+noremap <Leader>fsf :<C-U><C-R>=printf("Leaderf! rg -e %s", expand("<cword>"))<CR>
+noremap <Leader>fs :<C-U><C-R>=printf("Leaderf! rg -e ")<CR>
 " search visually selected text literally
 xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
 noremap go :<C-U>Leaderf! rg --recall<CR>
@@ -714,3 +691,31 @@ let g:airline_theme = 'gruvbox'
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
+
+" Python-mode
+let g:pymode_python = 'python3'
+" Fix vim hangs in regenerate rope cache
+let g:pymode_rope = 0
+let g:pymode_rope_completion = 0
+let g:pymode_rope_lookup_project = 0
+let g:pymode_rope_complete_on_dot = 0
+let g:pymode_rope_autoimport = 0
+
+let g:pymode_virtualenv = 1
+
+let g:pymode_lint = 1
+let g:pymode_lint_on_write = 1
+let g:pymode_lint_checkers = ["pyflakes" , "pep8"]
+" let g:pymode_lint_ignore = ""
+
+" Enable breakpoints plugin
+let g:pymode_breakpoint = 1
+let g:pymode_breakpoint_bind = '<leader>b'
+
+" syntax highlighting 高亮形式
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+let g:pymode_syntax_space_errors = g:pymode_syntax_all
+
+let g:pymode_folding = 0
