@@ -29,10 +29,6 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
-# java
-# export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_162.jdk/Contents/Home"
-export JAVA_HOME="/usr/lib/jvm/java"
-
 # nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -49,9 +45,6 @@ export PATH=$PATH:/usr/local/go/bin
 export FZF_DEFAULT_COMMAND="fd --exclude={.git,.idea,.vscode,.sass-cache,node_modules,build} --type f"
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --preview '(highlight -O ansi {} || cat {}) 2> /dev/null | head -500'"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# modbc for sql server
-export PATH=$PATH:/opt/mssql-tools/bin
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:/usr/local/rvm/bin"
