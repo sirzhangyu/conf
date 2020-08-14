@@ -1,3 +1,5 @@
+ZSH_PROFILE_PATH="$HOME/.oh-my-zsh/custom"
+
 alias cls='clear'
 alias ll='ls -la'
 alias la='ls -a'
@@ -16,6 +18,10 @@ alias upgrade='sudo apt upgrade -y'
 alias root='sudo su -'
 alias yd='python $HOME/Documents/ZY/ydcv/src/ydcv.py'
 alias at='tmux attach-session -t zy'
+alias zsh.zy="vim ${ZSH_PROFILE_PATH}/zy.zsh"
+alias zsh.emc="vim ${ZSH_PROFILE_PATH}/emc.zsh"
+alias zsh.source="source $HOME/.zshrc"
+alias vimrc="vim $HOME/.vimrc"
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
