@@ -12,6 +12,7 @@
     diff = auto
 [core]
     editor = vim
+    autocrlf = input
 [user]
 	email = Nick.Zhang2@emc.com
 	name = Zhang Yu
@@ -23,3 +24,5 @@
     tool = vimdiff
 [push]
 	default = simple
+[pull]
+	rebase = true
