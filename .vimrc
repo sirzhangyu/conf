@@ -710,7 +710,7 @@ let g:pymode_lint_checkers = ["pyflakes" , "pep8"]
 
 " Enable breakpoints plugin
 let g:pymode_breakpoint = 1
-let g:pymode_breakpoint_bind = '<leader>b'
+let g:pymode_breakpoint_bind = '<leader>bb'
 
 " syntax highlighting 高亮形式
 let g:pymode_syntax = 1
