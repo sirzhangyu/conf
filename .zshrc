@@ -69,7 +69,7 @@ ZSH_THEME="robbyrussell"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # plugins=(git)
-plugins=(git autojump git-flow github sublime sudo colored-man-pages zsh-syntax-highlighting)
+plugins=(git autojump git-flow github sublime sudo colored-man-pages zsh-syntax-highlighting zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
