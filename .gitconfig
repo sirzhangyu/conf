@@ -4,7 +4,7 @@
     br = branch
     co = checkout
     df = difftool
-	dfw = diff --ignore-space-change
+    dfw = diff --ignore-space-change
 [color]
     status = auto
     branch = auto
@@ -13,16 +13,59 @@
 [core]
     editor = vim
     autocrlf = input
+	quotepath = false
+	trustctime = false
+	excludesfile = /Users/zhangyu/.gitignore_global
+	attributesfile = ~/.attributes_global
+	longpaths = true
 [user]
-	email = Nick.Zhang2@emc.com
-	name = Zhang Yu
+	email = nickyuzhang@tencent.com
+	name = nickyuzhang
 [diff]
-	tool = vimdiff
+    tool = vimdiff
 [difftool]
-	prompt = false
+    prompt = false
 [merge]
     tool = vimdiff
 [push]
-	default = simple
+    default = simple
 [pull]
-	rebase = true
+    rebase = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[http]
+	postBuffer = 655360000
+[diff "text"]
+	textconv = cat
+[mergetool]
+	keepBackup = false
+[lfs]
+	concurrenttransfers = 32
+	fetchrecentrefsdays = 0
+	pruneoffsetdays = 0
+[rebase]
+	backend = apply
+[paper]
+    diff = delta
+    log = delta
+    reflog = delta
+    show = delta
+[delta]
+    line-numbers = true
+    plus-style = "syntax #012800"
+    minus-style = "syntax #340001"
+    syntax-theme = Monokai Extended
+    navigate = true
+[interactive]
+    diffFilter = delta --color-only
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/zhangyu/.stCommitMsg

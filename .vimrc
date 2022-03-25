@@ -21,7 +21,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'vim-scripts/matchit.zip'
 Plug 'Lokaltog/vim-easymotion'
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
@@ -509,8 +509,8 @@ let g:SuperTabDefaultCompletionType = "context"
 
 " ale
 let g:ale_set_highlights = 0
-let g:ale_lint_on_enter = 0
-let g:ale_fix_on_save = 1
+let g:ale_lint_on_enter = 1
+let g:ale_fix_on_save = 0
 let g:ale_sign_column_always = 1
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '⚡'
@@ -520,8 +520,8 @@ let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 nmap sp <Plug>(ale_previous_wrap)
 nmap sn <Plug>(ale_next_wrap)
-nmap <Leader>s :ALEToggle<CR>
-nmap <Leader>d :ALEDetail<CR>
+" nmap <Leader>s :ALEToggle<CR>
+" nmap <Leader>d :ALEDetail<CR>
 let g:ale_linters = {
   \ 'c++': ['clang'],
   \ 'c': ['clang'],
@@ -609,7 +609,7 @@ function! s:defx_my_settings() abort
   \ defx#do_action('copy')
   nnoremap <silent><buffer><expr> m
   \ defx#do_action('move')
-  nnoremap <silent><buffer><expr> p
+  nnoremap <silent><buffer><expr> P
   \ defx#do_action('paste')
   nnoremap <silent><buffer><expr> L
   \ defx#do_action('open')
@@ -617,8 +617,8 @@ function! s:defx_my_settings() abort
   \ defx#do_action('open', 'tabnew')
   nnoremap <silent><buffer><expr> E
   \ defx#do_action('open', 'vsplit')
-  nnoremap <silent><buffer><expr> P
-  \ defx#do_action('open', 'pedit')
+  " nnoremap <silent><buffer><expr> P
+  " \ defx#do_action('open', 'pedit')
   nnoremap <silent><buffer><expr> o
   \ defx#do_action('open_or_close_tree')
   nnoremap <silent><buffer><expr> K
@@ -666,6 +666,8 @@ function! s:defx_my_settings() abort
   \ defx#do_action('print')
   nnoremap <silent><buffer><expr> cd
   \ defx#do_action('change_vim_cwd')
+  nnoremap <silent><buffer><expr> p
+  \ defx#do_action('search', fnamemodify(defx#get_candidate().action__path, ':h'))
 endfunction
 call defx#custom#option('_', {
     \ 'winwidth': 30,
@@ -694,6 +696,8 @@ let g:deoplete#enable_at_startup = 1
 
 " Python-mode
 let g:pymode_python = 'python3'
+let g:pymode_options_max_line_length = 120
+let g:pymode_options_colorcolun = 1
 " Fix vim hangs in regenerate rope cache
 let g:pymode_rope = 0
 let g:pymode_rope_completion = 0
@@ -706,11 +710,13 @@ let g:pymode_virtualenv = 1
 let g:pymode_lint = 1
 let g:pymode_lint_on_write = 1
 let g:pymode_lint_checkers = ["pyflakes" , "pep8"]
+let g:pymode_lint_confg = '$HOME/pylint.rc'
 " let g:pymode_lint_ignore = ""
 
 " Enable breakpoints plugin
 let g:pymode_breakpoint = 1
 let g:pymode_breakpoint_bind = '<leader>bb'
+let g:pymode_breakpoint_cmd = 'import pdb; pdb.set_trace()'
 
 " syntax highlighting 高亮形式
 let g:pymode_syntax = 1

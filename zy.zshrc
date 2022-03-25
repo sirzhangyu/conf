@@ -3,6 +3,7 @@ ZSH_PROFILE_PATH="$HOME/.oh-my-zsh/custom"
 alias cls='clear'
 alias ll='ls -la'
 alias la='ls -a'
+alias vim='/usr/local/bin/vim'
 alias vi='vim'
 alias grep='grep --color=auto'
 alias -s gz='tar -xzvf'
@@ -19,13 +20,11 @@ alias root='sudo su -'
 alias yd='python $HOME/Documents/ZY/ydcv/src/ydcv.py'
 alias at='tmux attach-session -t zy'
 alias zsh.zy="vim ${ZSH_PROFILE_PATH}/zy.zsh"
-alias zsh.emc="vim ${ZSH_PROFILE_PATH}/emc.zsh"
 alias zsh.source="source $HOME/.zshrc"
 alias vimrc="vim $HOME/.vimrc"
+alias docker_clean_img="docker images | grep '<none>' | xargs docker rmi"
 
 # pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
@@ -42,11 +41,15 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export PATH=$PATH:/usr/local/go/bin
 
 # FZF
-export FZF_DEFAULT_COMMAND="fd --exclude={.git,.idea,.vscode,.sass-cache,node_modules,build} --type f"
+export FZF_DEFAULT_COMMAND="fd --exclude={.git,.idea,.vscode,.sass-cache,node_modules,build} --type f --hidden --follow"
+export FZF_DEFAULT_OPTS='--preview "bat --style=numbers --color=always --line-range :500 {}"'
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --preview '(highlight -O ansi {} || cat {}) 2> /dev/null | head -500'"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:/usr/local/rvm/bin"
 
 source ~/.cargo/env
+
+source "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
