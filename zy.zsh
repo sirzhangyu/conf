@@ -3,7 +3,7 @@ ZSH_PROFILE_PATH="$HOME/.oh-my-zsh/custom"
 alias cls='clear'
 alias ll='ls -la'
 alias la='ls -a'
-alias vim='/usr/local/bin/vim'
+# alias vim='/usr/local/bin/vim'
 alias vi='vim'
 alias grep='grep --color=auto'
 alias -s gz='tar -xzvf'
@@ -12,6 +12,7 @@ alias -s zip='unzip'
 alias -s bz2='tar -xjvf'
 alias df='df -h'
 alias h='htop'
+alias fd='fdfind'
 # alias yd='ydcv'
 alias install='sudo apt install -y'
 alias update='sudo apt update -y'
@@ -23,8 +24,11 @@ alias zsh.zy="vim ${ZSH_PROFILE_PATH}/zy.zsh"
 alias zsh.source="source $HOME/.zshrc"
 alias vimrc="vim $HOME/.vimrc"
 alias docker_clean_img="docker images | grep '<none>' | xargs docker rmi"
+alias gac="git add . && git ci --amend --no-edit && git push -f"
 
 # pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
@@ -32,13 +36,16 @@ eval "$(pyenv virtualenv-init -)"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-export PATH="$PATH:$(yarn global bin)"
+# export PATH="$PATH:$(yarn global bin)"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+# export PATH="$PATH:$HOME/.rvm/bin"
 
 # golang
 export PATH=$PATH:/usr/local/go/bin
+export PATH="$PATH:$(go env GOPATH)/bin"
+export GO111MODULE=on
+export GOPROXY="https://goproxy.cn/"
 
 # FZF
 export FZF_DEFAULT_COMMAND="fd --exclude={.git,.idea,.vscode,.sass-cache,node_modules,build} --type f --hidden --follow"
@@ -50,6 +57,9 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:/usr/local/rvm/bin"
 
-source ~/.cargo/env
+# source ~/.cargo/env
 
-source "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+# sdkman
+source "/$HOME/.sdkman/bin/sdkman-init.sh"
+
+export debug=true

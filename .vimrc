@@ -43,6 +43,7 @@ Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 " Plug 'liuchengxu/vim-which-key'
+Plug 'fatih/vim-go'
 
 call plug#end()
 
